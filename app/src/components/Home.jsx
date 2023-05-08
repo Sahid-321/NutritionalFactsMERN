@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-export default function Home() {
+export default function Home({setSendDataProp}) {
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
     const [clickedData, setClickedData] = useState('')
@@ -12,7 +12,7 @@ export default function Home() {
 
     }
     const handleSearch = async () => {
-        console.log(input, "input from handlesearch");
+      //  console.log(input, "input from handlesearch");
         // console.log(apiFoodData, "api");
         try {
             let config = {
@@ -50,22 +50,22 @@ export default function Home() {
         axios.get(`http://localhost:8000/get`)
             .then((res) => { return res.data })
             .then((data) => {
-               // console.log(data)
+                // console.log(data)
                 setFoodData(data)
             })
             .catch((err) => console.log(err))
     }, [])
     //console.log(foodData, "food data")
 
-    const handleDelete = async(id)=>{
+    const handleDelete = async (id) => {
         console.log(id);
         await axios.delete(`http://localhost:8000/delete/${id}`)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
     }
 
     const handleClick = (elem) => {
-        
+
 
         const dataString = {
             name: elem.name,
@@ -79,16 +79,17 @@ export default function Home() {
             Carbohydrates: elem.carbohydrates_total_g,
             Fiber: elem.fiber_g,
             Sugar: elem.sugar_g,
-          };
-     
-      
+        };
+
+
         const dataJSONString = JSON.stringify(dataString);
-      
-       // console.log(dataJSONString);
-      setClickedData(dataJSONString)
+
+        // console.log(dataJSONString);
+        setClickedData(dataJSONString)
+        setSendDataProp(dataJSONString)
         return dataJSONString;
-      };
-     
+    };
+
     return (
         <>
             <div>
@@ -97,11 +98,11 @@ export default function Home() {
             </div>
             <div>
                 {
-                   foodData && foodData.map((elem)=>{
-                        return(
-                            <div key={elem._id} onClick={()=>handleClick(elem)}>
+                    foodData && foodData.map((elem) => {
+                        return (
+                            <div key={elem._id} onClick={() => handleClick(elem)}>
 
-                                <h2>{elem.name} <button onClick={()=>handleDelete(elem._id)}>Delete</button></h2>
+                                <h2>{elem.name} <button onClick={() => handleDelete(elem._id)}>Delete</button></h2>
                                 <p>calories: {elem.calories}</p>
                                 <p>Fat Total:{elem.fat_total_g} g</p>
                                 <p>Fat Saturated: {elem.fat_saturated_g} g</p>
