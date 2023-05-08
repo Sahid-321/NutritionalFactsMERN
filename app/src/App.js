@@ -8,9 +8,9 @@ function App() {
  
   return (
     <Routes>
-    <Route path='/' element= {<Home setSendDataProp={setSendDataProp} />}>
+    <Route path='/' element= {<Home setSendDataProp={setSendDataProp} />}/>
      <Route path='/send' element={<Send sendDataProp={sendDataProp} />} />
-    </Route>
+  
   </Routes>
 
    

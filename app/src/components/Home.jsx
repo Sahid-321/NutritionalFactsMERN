@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 export default function Home({setSendDataProp}) {
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
     const [clickedData, setClickedData] = useState('')
-
+    const navigate = useNavigate();
     const handleInput = (e) => {
         //console.log(e.target.value);
         setInput(e.target.value)
@@ -85,11 +86,14 @@ export default function Home({setSendDataProp}) {
         const dataJSONString = JSON.stringify(dataString);
 
         // console.log(dataJSONString);
-        setClickedData(dataJSONString)
+    //    setClickedData(dataJSONString)
         setSendDataProp(dataJSONString)
         return dataJSONString;
     };
 
+    const handleNext = ()=>{
+        navigate("/send")
+    }
     return (
         <>
             <div>
@@ -118,6 +122,8 @@ export default function Home({setSendDataProp}) {
                     })
                 }
             </div>
+
+            <button onClick={handleNext}>Next</button>
         </>
     )
 }
