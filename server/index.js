@@ -42,6 +42,11 @@ app.post('/post', async (req, res) => {
     res.send("Data added successfully");
   });
 
+  app.delete('/delete/:id', async(req, res) => {
+    await FoodModel.findByIdAndDelete({ _id: req.params.id });
+    res.status(201).send("Food deleted");
+   
+})
 
 const PORT = Number(process.env.PORT) || 8000
 

@@ -56,8 +56,11 @@ export default function Home() {
     }, [])
     //console.log(foodData, "food data")
 
-    const handleDelete = (id)=>{
-        
+    const handleDelete = async(id)=>{
+        console.log(id);
+        await axios.delete(`http://localhost:8000/delete/${id}`)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     }
 
     return (
