@@ -27,6 +27,7 @@ app.get('/get', async(req, res) => {
 app.post('/post', async (req, res) => {
     const { apiFoodData } = req.body;
   
+
     console.log(apiFoodData[0].name);
     const name = apiFoodData[0].name;
     const preData = await FoodModel.findOne({ name: name });

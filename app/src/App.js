@@ -4,7 +4,7 @@ import Home from './components/Home';
 import { Route, Routes } from 'react-router-dom';
 import Send from './components/Send';
 function App() {
-  const [sendDataProp, setSendDataProp] = useState('')
+  const [sendDataProp, setSendDataProp] = useState([])
  
   return (
     <Routes>

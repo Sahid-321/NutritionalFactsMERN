@@ -66,30 +66,24 @@ export default function Home({setSendDataProp}) {
     }
 
     const handleClick = (elem) => {
-
-
         const dataString = {
-            name: elem.name,
-            calories: elem.calories,
-            Fat_Total: elem.fat_total_g,
-            Fat_Saturated: elem.fat_saturated_g,
-            Protein: elem.protein_g,
-            Sodium: elem.sodium_mg,
-            Potassium: elem.potassium_mg,
-            Cholesterol: elem.cholesterol_mg,
-            Carbohydrates: elem.carbohydrates_total_g,
-            Fiber: elem.fiber_g,
-            Sugar: elem.sugar_g,
+          name: elem.name,
+          calories: elem.calories,
+          Fat_Total: elem.fat_total_g,
+          Fat_Saturated: elem.fat_saturated_g,
+          Protein: elem.protein_g,
+          Sodium: elem.sodium_mg,
+          Potassium: elem.potassium_mg,
+          Cholesterol: elem.cholesterol_mg,
+          Carbohydrates: elem.carbohydrates_total_g,
+          Fiber: elem.fiber_g,
+          Sugar: elem.sugar_g,
         };
-
-
+      
         const dataJSONString = JSON.stringify(dataString);
-
-        // console.log(dataJSONString);
-    //    setClickedData(dataJSONString)
-        setSendDataProp(dataJSONString)
-        return dataJSONString;
-    };
+      
+        setSendDataProp((prevSelectedData) => [...prevSelectedData, dataJSONString]);
+      };
 
     const handleNext = ()=>{
         navigate("/send")
