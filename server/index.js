@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 require("dotenv").config()
 mongoose.set('strictQuery', false);
+
 const app = express()
 app.use(express.json())
 app.use(cors({
@@ -14,6 +15,12 @@ app.use(cors({
 
 app.get('/',(req, res)=>{
     res.send("working") 
+})
+
+app.post('/post',(req, res)=>{
+const{apiFoodData} = req.body
+
+console.log(apiFoodData);
 })
 
 const PORT = Number(process.env.PORT) || 8000
