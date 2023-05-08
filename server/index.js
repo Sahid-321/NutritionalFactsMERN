@@ -2,6 +2,7 @@ const express = require('express')
 const { connection } = require("./config/db")
 const cors = require("cors")
 const mongoose = require('mongoose')
+const { FoodModel } = require('./model/food.model')
 
 
 require("dotenv").config()
@@ -13,27 +14,40 @@ app.use(cors({
     origin: '*'
 }))
 
-app.get('/',(req, res)=>{
-    res.send("working") 
+app.get('/', (req, res) => {
+    res.send("working")
 })
 
-app.post('/post',(req, res)=>{
-const{apiFoodData} = req.body
+app.post('/post', async (req, res) => {
+    const { apiFoodData } = req.body;
+  
+    console.log(apiFoodData[0].name);
+    const name = apiFoodData[0].name;
+    const preData = await FoodModel.findOne({ name: name });
+  
+    if (!preData) {
+      FoodModel.create(apiFoodData);
+      console.log("Data added successfully");
+    } else {
+      console.log("Data already available");
+    }
 
-console.log(apiFoodData);
-})
+    
+    res.send("Data added successfully");
+  });
+
 
 const PORT = Number(process.env.PORT) || 8000
 
 
-const server = app.listen(PORT, async ()=>{
-    try{
-       await connection
+const server = app.listen(PORT, async () => {
+    try {
+        await connection
         console.log("Connected to DB successfully")
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
-    
+
     console.log(`Server running on PORT ${PORT}`)
 })
