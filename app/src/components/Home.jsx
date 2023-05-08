@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 export default function Home() {
     const [input, setInput] = useState("");
-   // const [apiFoodData, setApiFoodData] = useState([])
+    const [foodData, setFoodData] = useState([])
 
     const handleInput = (e) => {
         //console.log(e.target.value);
         setInput(e.target.value)
-       // console.log(input, "input");
+        // console.log(input, "input");
 
     }
     const handleSearch = async () => {
         console.log(input, "input from handlesearch");
         // console.log(apiFoodData, "api");
         try {
-          let config = {
+            let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
                 url: `https://api.api-ninjas.com/v1/nutrition?query=${input}`,
@@ -24,13 +24,14 @@ export default function Home() {
             };
 
             axios.request(config)
-                .then(async(response) => {
-                     console.log(response.data);
-                   // setApiFoodData(response.data)
+                .then(async (response) => {
+                    console.log(response.data);
+                    // setApiFoodData(response.data)
+                    //post data in mongodb
                     const apiFoodData = response.data
                     await axios.post(`http://localhost:8000/post`, { apiFoodData })
-                    .then((res) => console.log(res))
-                    .catch((err) => console.log(err))
+                        .then((res) => console.log(res))
+                        .catch((err) => console.log(err))
                 })
                 .catch((error) => {
                     console.log(error);
@@ -38,21 +39,39 @@ export default function Home() {
         } catch (error) {
             console.log(error);
         }
-     //   console.log(apiFoodData, "api");
-        // post in backend
-      
+
+
 
     }
 
-    // useEffect(() => {
-    //     //
+    useEffect(() => {
+        //
+        axios.get(`http://localhost:8000/get`)
+            .then((res) => { return res.data })
+            .then((data) => {
+               // console.log(data)
+                setFoodData(data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
+    //console.log(foodData, "food data")
 
-    // }, [apiFoodData])
     return (
         <>
             <div>
                 <input onChange={(e) => handleInput(e)} type='text' placeholder='Enter food name' />
                 <button onClick={handleSearch}>Search</button>
+            </div>
+            <div>
+                {
+                   foodData && foodData.map((elem)=>{
+                        return(
+                            <div key={elem._id}>
+                                <p>{elem.name}</p>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </>
     )

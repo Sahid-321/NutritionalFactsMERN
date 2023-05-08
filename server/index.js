@@ -18,6 +18,12 @@ app.get('/', (req, res) => {
     res.send("working")
 })
 
+app.get('/get', async(req, res) => {
+    const data = await FoodModel.find();
+   // console.log(data);
+    res.send(data)
+})
+
 app.post('/post', async (req, res) => {
     const { apiFoodData } = req.body;
   
@@ -32,7 +38,7 @@ app.post('/post', async (req, res) => {
       console.log("Data already available");
     }
 
-    
+
     res.send("Data added successfully");
   });
 
