@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-export default function Home({ setSendDataProp }) {
+export default function Home({ setSendDataProp, sendDataProp }) {
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
     const [selectedFoodId, setSelectedFoodId] = useState('')
@@ -88,18 +88,26 @@ const [selectedItems,setSelectedItems] = useState('')
 
         if (selectedItems.includes(elem._id)) {
             setSelectedItems(selectedItems.filter((id) => id !== elem._id));
+            setSendDataProp(sendDataProp.filter((id) => id._id !== elem._id));
+
           } else {
             setSelectedItems([...selectedItems, elem._id]);
+            setSendDataProp([...sendDataProp, elem]);
           }
       
-          setSendDataProp(dataJSONString);
+          //setSendDataProp((prevSelectedData) => [...prevSelectedData, dataJSONString]);
     };
 
     const handleNext = () => {
-        navigate("/send")
+        if(!selectedItems){
+            alert("Select any item")
+        }else{
+            navigate("/send")
+        }
+       
     }
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-1 mb-10">
         <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4">
           <input
             className="p-2 border rounded-lg w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -114,13 +122,15 @@ const [selectedItems,setSelectedItems] = useState('')
             Search
           </button>
         </div>
+        <h1 className="text-xl font-medium">Your Search History</h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 w-full max-w-screen-lg">
+           
           {foodData &&
             foodData.map((elem) => (
               <div
                 key={elem._id}
                 className={`border rounded-lg p-4 cursor-pointer ${
-                  selectedItems.includes(elem._id) ? "bg-gray-100" : ""
+                  selectedItems.includes(elem._id) ? "bg-green-200" : ""
                 }`}
                 onClick={() => {
                   handleClick(elem);
