@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-export default function Home({setSendDataProp}) {
+export default function Home({ setSendDataProp }) {
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
-    const [clickedData, setClickedData] = useState('')
+    const [selectedFoodId, setSelectedFoodId] = useState('')
+const [selectedItems,setSelectedItems] = useState('')
     const navigate = useNavigate();
     const handleInput = (e) => {
         //console.log(e.target.value);
@@ -13,7 +14,7 @@ export default function Home({setSendDataProp}) {
 
     }
     const handleSearch = async () => {
-      //  console.log(input, "input from handlesearch");
+        //  console.log(input, "input from handlesearch");
         // console.log(apiFoodData, "api");
         try {
             let config = {
@@ -67,57 +68,81 @@ export default function Home({setSendDataProp}) {
 
     const handleClick = (elem) => {
         const dataString = {
-          name: elem.name,
-          calories: elem.calories,
-          Fat_Total: elem.fat_total_g,
-          Fat_Saturated: elem.fat_saturated_g,
-          Protein: elem.protein_g,
-          Sodium: elem.sodium_mg,
-          Potassium: elem.potassium_mg,
-          Cholesterol: elem.cholesterol_mg,
-          Carbohydrates: elem.carbohydrates_total_g,
-          Fiber: elem.fiber_g,
-          Sugar: elem.sugar_g,
+            name: elem.name,
+            calories: elem.calories,
+            Fat_Total: elem.fat_total_g,
+            Fat_Saturated: elem.fat_saturated_g,
+            Protein: elem.protein_g,
+            Sodium: elem.sodium_mg,
+            Potassium: elem.potassium_mg,
+            Cholesterol: elem.cholesterol_mg,
+            Carbohydrates: elem.carbohydrates_total_g,
+            Fiber: elem.fiber_g,
+            Sugar: elem.sugar_g,
         };
-      
-        const dataJSONString = JSON.stringify(dataString);
-      
-        setSendDataProp((prevSelectedData) => [...prevSelectedData, dataJSONString]);
-      };
 
-    const handleNext = ()=>{
+        const dataJSONString = JSON.stringify(dataString);
+
+        if (selectedItems.includes(elem._id)) {
+            setSelectedItems(selectedItems.filter((id) => id !== elem._id));
+          } else {
+            setSelectedItems([...selectedItems, elem._id]);
+          }
+      
+          setSendDataProp(dataJSONString);
+    };
+
+    const handleNext = () => {
         navigate("/send")
     }
     return (
-        <>
-            <div>
-                <input onChange={(e) => handleInput(e)} type='text' placeholder='Enter food name' />
-                <button onClick={handleSearch}>Search</button>
+        <div className="flex flex-col items-center">
+            <div className="flex items-center space-x-4">
+                <input
+                    className="p-2 border rounded-lg w-96 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) => handleInput(e)}
+                    type='text'
+                    placeholder='Enter food name'
+                />
+                <button
+                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+                    onClick={handleSearch}
+                >
+                    Search
+                </button>
             </div>
-            <div>
-                {
-                    foodData && foodData.map((elem) => {
-                        return (
-                            <div key={elem._id} onClick={() => handleClick(elem)}>
-
-                                <h2>{elem.name} <button onClick={() => handleDelete(elem._id)}>Delete</button></h2>
-                                <p>calories: {elem.calories}</p>
-                                <p>Fat Total:{elem.fat_total_g} g</p>
-                                <p>Fat Saturated: {elem.fat_saturated_g} g</p>
-                                <p>Protein : {elem.protein_g} g</p>
-                                <p>Sodium : {elem.sodium_mg} mg</p>
-                                <p>Potassium: {elem.potassium_mg} mg</p>
-                                <p>Cholesterol: {elem.cholesterol_mg} mg</p>
-                                <p>Carbohydrates Total: {elem.carbohydrates_total_g} g</p>
-                                <p>Fiber: {elem.fiber_g} g</p>
-                                <p>Sugar: {elem.sugar_g} g</p>
-                            </div>
-                        )
-                    })
-                }
+            <div className="grid grid-cols-4 gap-4 mt-4">
+                {foodData && foodData.map((elem) => (
+                    <div
+                    key={elem._id}
+                    className={`border rounded-lg p-4 cursor-pointer ${
+                      selectedItems.includes(elem._id) ? 'bg-gray-100' : ''
+                    }`}
+                    onClick={() => {handleClick(elem)
+                    setSelectedFoodId(elem._id)}}
+                  >
+                        <h2 className="text-xl font-medium">{elem.name} <button onClick={() => handleDelete(elem._id)} className="ml-4 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-1">Delete</button></h2>
+                        <p>calories: {elem.calories}</p>
+                        <p>Fat Total: {elem.fat_total_g} g</p>
+                        <p>Fat Saturated: {elem.fat_saturated_g} g</p>
+                        <p>Protein : {elem.protein_g} g</p>
+                        <p>Sodium : {elem.sodium_mg} mg</p>
+                        <p>Potassium: {elem.potassium_mg} mg</p>
+                        <p>Cholesterol: {elem.cholesterol_mg} mg</p>
+                        <p>Carbohydrates Total: {elem.carbohydrates_total_g} g</p>
+                        <p>Fiber: {elem.fiber_g} g</p>
+                        <p>Sugar: {elem.sugar_g} g</p>
+                    </div>
+                ))}
             </div>
+            <button
+                className="mt-4 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+                onClick={handleNext}
+            >
+                Next
+            </button>
+        </div>
 
-            <button onClick={handleNext}>Next</button>
-        </>
+
     )
 }
