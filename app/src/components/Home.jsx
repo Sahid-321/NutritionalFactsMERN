@@ -97,52 +97,63 @@ const [selectedItems,setSelectedItems] = useState('')
     }
     return (
         <div className="flex flex-col items-center">
-            <div className="flex items-center space-x-4">
-                <input
-                    className="p-2 border rounded-lg w-96 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onChange={(e) => handleInput(e)}
-                    type='text'
-                    placeholder='Enter food name'
-                />
-                <button
-                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
-                    onClick={handleSearch}
-                >
-                    Search
-                </button>
-            </div>
-            <div className="grid grid-cols-4 gap-4 mt-4">
-                {foodData && foodData.map((elem) => (
-                    <div
-                    key={elem._id}
-                    className={`border rounded-lg p-4 cursor-pointer ${
-                      selectedItems.includes(elem._id) ? 'bg-gray-100' : ''
-                    }`}
-                    onClick={() => {handleClick(elem)
-                    setSelectedFoodId(elem._id)}}
-                  >
-                        <h2 className="text-xl font-medium">{elem.name} <button onClick={() => handleDelete(elem._id)} className="ml-4 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-1">Delete</button></h2>
-                        <p>calories: {elem.calories}</p>
-                        <p>Fat Total: {elem.fat_total_g} g</p>
-                        <p>Fat Saturated: {elem.fat_saturated_g} g</p>
-                        <p>Protein : {elem.protein_g} g</p>
-                        <p>Sodium : {elem.sodium_mg} mg</p>
-                        <p>Potassium: {elem.potassium_mg} mg</p>
-                        <p>Cholesterol: {elem.cholesterol_mg} mg</p>
-                        <p>Carbohydrates Total: {elem.carbohydrates_total_g} g</p>
-                        <p>Fiber: {elem.fiber_g} g</p>
-                        <p>Sugar: {elem.sugar_g} g</p>
-                    </div>
-                ))}
-            </div>
-            <button
-                className="mt-4 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
-                onClick={handleNext}
-            >
-                Next
-            </button>
+        <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4">
+          <input
+            className="p-2 border rounded-lg w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => handleInput(e)}
+            type="text"
+            placeholder="Enter food name"
+          />
+          <button
+            className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 w-full max-w-screen-lg">
+          {foodData &&
+            foodData.map((elem) => (
+              <div
+                key={elem._id}
+                className={`border rounded-lg p-4 cursor-pointer ${
+                  selectedItems.includes(elem._id) ? "bg-gray-100" : ""
+                }`}
+                onClick={() => {
+                  handleClick(elem);
+                  setSelectedFoodId(elem._id);
+                }}
+              >
+                <h2 className="text-xl font-medium">
+                  {elem.name}{" "}
+                  <button
+                    onClick={() => handleDelete(elem._id)}
+                    className="ml-4 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-1"
+                  >
+                    Delete
+                  </button>
+                </h2>
+                <p>calories: {elem.calories}</p>
+                <p>Fat Total: {elem.fat_total_g} g</p>
+                <p>Fat Saturated: {elem.fat_saturated_g} g</p>
+                <p>Protein : {elem.protein_g} g</p>
+                <p>Sodium : {elem.sodium_mg} mg</p>
+                <p>Potassium: {elem.potassium_mg} mg</p>
+                <p>Cholesterol: {elem.cholesterol_mg} mg</p>
+                <p>Carbohydrates Total: {elem.carbohydrates_total_g} g</p>
+                <p>Fiber: {elem.fiber_g} g</p>
+                <p>Sugar: {elem.sugar_g} g</p>
+              </div>
+            ))}
+        </div>
+        <button
+          className="mt-4 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg w-full max-w-screen-lg"
+          onClick={handleNext}
+        >
+          Next
+        </button>
+      </div>
+      
 
     )
 }
