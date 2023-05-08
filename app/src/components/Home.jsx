@@ -3,6 +3,7 @@ import axios from 'axios'
 export default function Home() {
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
+    const [clickedData, setClickedData] = useState('')
 
     const handleInput = (e) => {
         //console.log(e.target.value);
@@ -63,6 +64,31 @@ export default function Home() {
         .catch((err) => console.log(err))
     }
 
+    const handleClick = (elem) => {
+        
+
+        const dataString = {
+            name: elem.name,
+            calories: elem.calories,
+            Fat_Total: elem.fat_total_g,
+            Fat_Saturated: elem.fat_saturated_g,
+            Protein: elem.protein_g,
+            Sodium: elem.sodium_mg,
+            Potassium: elem.potassium_mg,
+            Cholesterol: elem.cholesterol_mg,
+            Carbohydrates: elem.carbohydrates_total_g,
+            Fiber: elem.fiber_g,
+            Sugar: elem.sugar_g,
+          };
+     
+      
+        const dataJSONString = JSON.stringify(dataString);
+      
+       // console.log(dataJSONString);
+      setClickedData(dataJSONString)
+        return dataJSONString;
+      };
+     
     return (
         <>
             <div>
@@ -73,7 +99,7 @@ export default function Home() {
                 {
                    foodData && foodData.map((elem)=>{
                         return(
-                            <div key={elem._id}>
+                            <div key={elem._id} onClick={()=>handleClick(elem)}>
 
                                 <h2>{elem.name} <button onClick={()=>handleDelete(elem._id)}>Delete</button></h2>
                                 <p>calories: {elem.calories}</p>
