@@ -68,7 +68,7 @@ export default function Send({sendDataProp}) {
       <input 
         className="p-5 w-full max-w-screen-lg lg:w-80 py-2 mb-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={(e)=>setMobileNumber(e.target.value)}
-        placeholder='Enter mobile number' 
+        placeholder='Enter whatsapp number' 
       />
  
   
