@@ -56,6 +56,10 @@ export default function Home() {
     }, [])
     //console.log(foodData, "food data")
 
+    const handleDelete = (id)=>{
+        
+    }
+
     return (
         <>
             <div>
@@ -67,7 +71,18 @@ export default function Home() {
                    foodData && foodData.map((elem)=>{
                         return(
                             <div key={elem._id}>
-                                <p>{elem.name}</p>
+
+                                <h2>{elem.name} <button onClick={()=>handleDelete(elem._id)}>Delete</button></h2>
+                                <p>calories: {elem.calories}</p>
+                                <p>Fat Total:{elem.fat_total_g} g</p>
+                                <p>Fat Saturated: {elem.fat_saturated_g} g</p>
+                                <p>Protein : {elem.protein_g} g</p>
+                                <p>Sodium : {elem.sodium_mg} mg</p>
+                                <p>Potassium: {elem.potassium_mg} mg</p>
+                                <p>Cholesterol: {elem.cholesterol_mg} mg</p>
+                                <p>Carbohydrates Total: {elem.carbohydrates_total_g} g</p>
+                                <p>Fiber: {elem.fiber_g} g</p>
+                                <p>Sugar: {elem.sugar_g} g</p>
                             </div>
                         )
                     })
