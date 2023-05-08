@@ -33,7 +33,8 @@ const [selectedItems,setSelectedItems] = useState('')
                     //post data in mongodb
                     const apiFoodData = response.data
                     await axios.post(`http://localhost:8000/post`, { apiFoodData })
-                        .then((res) => console.log(res))
+                        .then((res) => {console.log(res)
+                            navigate(0)})
                         .catch((err) => console.log(err))
                 })
                 .catch((error) => {
@@ -43,7 +44,7 @@ const [selectedItems,setSelectedItems] = useState('')
             console.log(error);
         }
 
-
+//setTimeout(()=>{}, 1000)
 
     }
 
@@ -62,8 +63,10 @@ const [selectedItems,setSelectedItems] = useState('')
     const handleDelete = async (id) => {
         console.log(id);
         await axios.delete(`http://localhost:8000/delete/${id}`)
-            .then((res) => console.log(res))
+            .then((res) => {console.log(res)
+                navigate(0)})
             .catch((err) => console.log(err))
+
     }
 
     const handleClick = (elem) => {

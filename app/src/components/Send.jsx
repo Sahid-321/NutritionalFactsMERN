@@ -35,17 +35,27 @@ export default function Send({sendDataProp}) {
   }
 
   return (
-    <>
-    <div>
-      <input onChange={(e)=>setMobileNumber(e.target.value)} placeholder='Enter mobile number' />
+    <div className="flex flex-col items-center">
+    <div className="w-full max-w-md px-4">
+      <input 
+        className="w-full py-2 mb-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onChange={(e)=>setMobileNumber(e.target.value)}
+        placeholder='Enter mobile number' 
+      />
       {numberEmptyError && (
-          <div className='errors'>Mobile number cannot be empty!</div>
-        )}
-      <h4>Your Text to be sent</h4>
-      <p>{sendDataProp}</p>
+        <div className='text-red-500 mb-2'>Mobile number cannot be empty!</div>
+      )}
+      <h4 className="text-lg font-medium mb-2">Your Text to be sent</h4>
+      <p className="mb-4">{sendDataProp}</p>
+      <button 
+        className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+        onClick={handleSend}
+      >
+        send
+      </button>
     </div>
-
-    <button onClick={handleSend}>send</button>
-    </>
+  </div>
+  
+  
   )
 }
