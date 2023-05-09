@@ -62,9 +62,10 @@ export default function Send({sendDataProp}) {
     }
   };
   return (
-    <div className="flex flex-col items-center mt-1 mb-10">
+    <div className="flex flex-col items-center mt-1 mb-10 border-gray-400">
+         <p   className="text-lg text-blue-500 font-medium mt-2">send these data on whatsapp</p>
           <h4 className="text-lg font-medium mb-2">Your Text to be sent to {mobileNumber}</h4>
-    <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4">
+    <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4 border-gray-400">
       <input 
         className="p-5 w-full max-w-screen-lg lg:w-80 py-2 mb-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={(e)=>setMobileNumber(e.target.value)}
@@ -101,7 +102,7 @@ export default function Send({sendDataProp}) {
                </div>
              ))}
          </div>
-         <p   className="w-full py-2 text-blue-500   mt-4">send these data on whatsapp</p>
+      
       <button 
         className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mt-4"
         onClick={handleSend}

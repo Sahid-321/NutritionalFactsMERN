@@ -124,10 +124,10 @@ export default function Home({ setSendDataProp, sendDataProp }) {
 
     }
     return (
-        <div className="flex flex-col items-center mt-1 mb-10">
+        <div className="flex flex-col items-center mt-1 mb-10 border-green-400">
             <h1 className="text-xl font-medium text-green-500 mb-5">This is the platform where you can check all Nutritional Values.</h1>
 
-            <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4">
+            <div className="flex items-center flex-wrap justify-center w-full max-w-screen-lg space-x-4 border-gray-400">
                 <input
                     className="p-2 border rounded-lg w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onChange={(e) => handleInput(e)}
