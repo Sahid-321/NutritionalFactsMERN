@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 export default function Home({ setSendDataProp, sendDataProp }) {
+    var server_URL = `https://server12-nutritionfact.vercel.app`
     const [input, setInput] = useState("");
     const [foodData, setFoodData] = useState([])
     const [selectedFoodId, setSelectedFoodId] = useState('')
@@ -32,7 +33,7 @@ const [selectedItems,setSelectedItems] = useState('')
                     // setApiFoodData(response.data)
                     //post data in mongodb
                     const apiFoodData = response.data
-                    await axios.post(`http://localhost:8000/post`, { apiFoodData })
+                    await axios.post(`server_URL/post`, { apiFoodData })
                         .then((res) => {console.log(res)
                             navigate(0)})
                         .catch((err) => console.log(err))
@@ -50,7 +51,7 @@ const [selectedItems,setSelectedItems] = useState('')
 
     useEffect(() => {
         //
-        axios.get(`http://localhost:8000/get`)
+        axios.get(`server_URL/get`)
             .then((res) => { return res.data })
             .then((data) => {
                 // console.log(data)
@@ -62,7 +63,7 @@ const [selectedItems,setSelectedItems] = useState('')
 
     const handleDelete = async (id) => {
         console.log(id);
-        await axios.delete(`http://localhost:8000/delete/${id}`)
+        await axios.delete(`server_URL/delete/${id}`)
             .then((res) => {console.log(res)
                 navigate(0)})
             .catch((err) => console.log(err))
