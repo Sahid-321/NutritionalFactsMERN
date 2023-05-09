@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     res.send("working")
 })
 
+
 app.get('/get', async(req, res) => {
     const data = await FoodModel.find();
    // console.log(data);
