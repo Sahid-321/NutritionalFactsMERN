@@ -101,6 +101,7 @@ export default function Send({sendDataProp}) {
                </div>
              ))}
          </div>
+         <p   className="w-full py-2 text-blue-500   mt-4">send these data on whatsapp</p>
       <button 
         className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mt-4"
         onClick={handleSend}
